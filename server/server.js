@@ -47,3 +47,11 @@ app.use(
 "/api/projects",
 projectRoutes
 );
+
+const publicRoutes =
+require("./routes/publicRoutes");
+
+app.use(
+"/api/portfolio",
+publicRoutes
+);

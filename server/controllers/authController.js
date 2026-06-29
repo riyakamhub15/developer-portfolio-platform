@@ -6,7 +6,7 @@ exports.registerUser = async (req,res) => {
 
 try {
 
-    const {name,email,password} = req.body;
+    const {name, username, email, password} = req.body;
 
     const userExists = await User.findOne({email});
 
@@ -20,6 +20,7 @@ try {
 
     const user = await User.create({
         name,
+        username,
         email,
         password:hashedPassword
     });

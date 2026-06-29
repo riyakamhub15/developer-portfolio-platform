@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
 {
+    username:{
+    type:String,
+    unique:true
+},
+
     name:{
         type:String,
         required:true
@@ -43,6 +48,7 @@ const userSchema = new mongoose.Schema(
     }
 
 },
+
 {
     timestamps:true
 }
