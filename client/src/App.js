@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Portfolio from "./pages/Portfolio";
 import Profile from "./pages/Profile";
 import Projects from "./pages/Projects";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
 
@@ -32,25 +33,55 @@ function App() {
                 />
 
                 <Route
-                    path="/dashboard"
-                    element={<Dashboard />}
-                />
+
+path="/dashboard"
+
+element={
+
+<ProtectedRoute>
+
+<Dashboard/>
+
+</ProtectedRoute>
+
+}
+
+/>
 
                 <Route
                     path="/portfolio/:username"
                     element={<Portfolio />}
                 />
 
-                <Route
-                    path="/profile"
-                    element={<Profile />}
-                />
+      <Route
 
-                <Route
+path="/profile"
+
+element={
+
+<ProtectedRoute>
+
+<Profile/>
+
+</ProtectedRoute>
+
+}
+
+/>
+
+<Route
 
 path="/projects"
 
-element={<Projects/>}
+element={
+
+<ProtectedRoute>
+
+<Projects/>
+
+</ProtectedRoute>
+
+}
 
 />
 

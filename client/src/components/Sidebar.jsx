@@ -1,6 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 function Sidebar() {
+
+    const location = useLocation();
+
+    const { user, logout } = useAuth();
 
     const menu = [
 
@@ -20,48 +25,105 @@ function Sidebar() {
         },
 
         {
-            title: "Portfolio",
-            path: "/portfolio/riya"
-        },
-
-        {
-            title: "Settings",
-            path: "/settings"
+            title: "My Portfolio",
+            path: user
+                ? `/portfolio/${user.username}`
+                : "/dashboard"
         }
 
     ];
 
+    const handleLogout = () => {
+
+        logout();
+
+        window.location.href = "/login";
+
+    };
+
     return (
 
-        <div className="w-64 min-h-screen bg-slate-900 text-white p-6">
+        <div className="w-64 min-h-screen bg-slate-900 text-white flex flex-col">
 
-            <h1 className="text-3xl font-bold mb-10">
+            <div className="p-6 border-b border-slate-700">
 
-                DevFolio
+                <h1 className="text-3xl font-bold">
 
-            </h1>
+                    DevFolio
 
-            {
+                </h1>
 
-                menu.map((item,index)=>(
+                {
 
-                    <Link
+                    user && (
 
-                        key={index}
+                        <div className="mt-5">
 
-                        to={item.path}
+                            <p className="font-semibold">
 
-                        className="block py-3 px-4 rounded-lg hover:bg-slate-700 mb-2"
+                                {user.name}
 
-                    >
+                            </p>
 
-                        {item.title}
+                            <p className="text-sm text-gray-300">
 
-                    </Link>
+                                @{user.username}
 
-                ))
+                            </p>
 
-            }
+                        </div>
+
+                    )
+
+                }
+
+            </div>
+
+            <div className="flex-1 p-4">
+
+                {
+
+                    menu.map((item) => (
+
+                        <Link
+
+                            key={item.title}
+
+                            to={item.path}
+
+                            className={`block px-4 py-3 rounded-lg mb-2 transition duration-200 ${
+                                location.pathname === item.path
+                                    ? "bg-blue-600"
+                                    : "hover:bg-slate-700"
+                            }`}
+
+                        >
+
+                            {item.title}
+
+                        </Link>
+
+                    ))
+
+                }
+
+            </div>
+
+            <div className="p-4 border-t border-slate-700">
+
+                <button
+
+                    onClick={handleLogout}
+
+                    className="w-full bg-red-500 hover:bg-red-600 py-3 rounded-lg transition"
+
+                >
+
+                    Logout
+
+                </button>
+
+            </div>
 
         </div>
 

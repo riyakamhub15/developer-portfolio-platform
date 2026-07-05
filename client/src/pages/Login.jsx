@@ -1,34 +1,32 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import AuthLayout from "../components/AuthLayout";
 import AuthCard from "../components/AuthCard";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
 
 import { loginUser } from "../services/authService";
+import useAuth from "../hooks/useAuth";
 
 function Login() {
 
     const navigate = useNavigate();
 
+    const { login } = useAuth();
+
     const [formData, setFormData] = useState({
-
         email: "",
-
         password: ""
-
     });
+
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
 
         setFormData({
-
             ...formData,
-
             [e.target.name]: e.target.value
-
         });
 
     };
@@ -37,18 +35,17 @@ function Login() {
 
         e.preventDefault();
 
+        setLoading(true);
+
         try {
 
-            const response = await loginUser(formData);
+          const response = await loginUser(formData);
 
-            localStorage.setItem(
-                "token",
-                response.data.token
-            );
+console.log("LOGIN RESPONSE:", response.data);
 
-            alert("Login Successful");
+login(response.data.token);
 
-            navigate("/dashboard");
+navigate("/dashboard");
 
         }
 
@@ -58,6 +55,12 @@ function Login() {
                 error.response?.data?.message ||
                 "Login Failed"
             );
+
+        }
+
+        finally {
+
+            setLoading(false);
 
         }
 
@@ -72,55 +75,49 @@ function Login() {
                 <form onSubmit={handleSubmit}>
 
                     <Input
-
                         label="Email"
-
                         type="email"
-
                         name="email"
-
+                        placeholder="Enter your email"
                         value={formData.email}
-
                         onChange={handleChange}
-
                     />
 
                     <Input
-
                         label="Password"
-
                         type="password"
-
                         name="password"
-
+                        placeholder="Enter your password"
                         value={formData.password}
-
                         onChange={handleChange}
-
                     />
 
-                    <Button type="submit">
+                    <div className="mt-6">
 
-                        Login
+                        <Button type="submit">
 
-                    </Button>
+                            {loading ? "Logging in..." : "Login"}
 
-                    <p className="text-center mt-5">
+                        </Button>
 
-    Don't have an account?
-
-    <Link
-        to="/register"
-        className="text-blue-600 ml-2 font-semibold"
-    >
-
-        Register
-
-    </Link>
-
-</p>
+                    </div>
 
                 </form>
+
+                <p className="text-center mt-6">
+
+                    Don't have an account?
+
+                    <Link
+                        to="/register"
+                        className="text-blue-600 ml-2 font-semibold hover:underline"
+                    >
+
+                        Register
+
+                    </Link>
+
+                </p>
 
             </AuthCard>
 
