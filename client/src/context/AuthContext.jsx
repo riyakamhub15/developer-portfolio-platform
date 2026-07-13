@@ -35,6 +35,8 @@ function AuthProvider({ children }) {
 
         const response = await getProfile();
 
+        console.log("Calling getProfile...");
+        
         console.log(response.data);
 
         setUser(response.data);
@@ -57,13 +59,16 @@ function AuthProvider({ children }) {
 
 };
 
-    const login = (token) => {
+   const login = async (token) => {
 
-        localStorage.setItem("token", token);
+    console.log("Inside login(), received token:", token);
 
-        fetchUser();
+    localStorage.setItem("token", token);
 
-    };
+    console.log("Saved token:", localStorage.getItem("token"));
+
+    await fetchUser();
+};
 
     const logout = () => {
 

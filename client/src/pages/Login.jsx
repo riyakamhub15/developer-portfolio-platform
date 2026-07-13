@@ -41,9 +41,13 @@ function Login() {
 
           const response = await loginUser(formData);
 
-console.log("LOGIN RESPONSE:", response.data);
+console.log("API Response:", response.data);
 
-login(response.data.token);
+console.log("Token:", response.data.token);
+
+await login(response.data.token);
+
+console.log("LocalStorage Token:", localStorage.getItem("token"));
 
 navigate("/dashboard");
 

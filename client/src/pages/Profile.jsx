@@ -10,17 +10,24 @@ import SkillsSection from "../components/SkillsSection";
 
 import AboutSection from "../components/AboutSection";
 
-import Button from "../components/Button";
+import { getProfile, updateProfile } from "../services/userService";
 
-import { getProfile } from "../services/userService";
+import ProfileForm from "../components/ProfileForm";
+
+import { getProjects } from "../services/projectService";
+
+import RecentProjects from "../components/RecentProjects";
 
 function Profile(){
 
     const [profile,setProfile]=useState(null);
+    const [editing, setEditing] = useState(false);
+    const [projects, setProjects] = useState([]);
 
     useEffect(()=>{
 
         fetchProfile();
+        fetchProjects();
 
     },[]);
 
@@ -42,6 +49,63 @@ function Profile(){
 
     };
 
+    const fetchProjects = async () => {
+
+    try {
+
+        const response = await getProjects();
+
+        setProjects(response.data);
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+    }
+
+};
+
+const handleSave = async (data) => {
+
+    try {
+
+        await updateProfile(data);
+
+        await fetchProfile();
+
+        setEditing(false);
+
+        alert("Profile Updated Successfully!");
+
+    }
+
+    catch (error) {
+
+        alert("Failed to Update Profile");
+
+    }
+
+};
+
+if (!profile) {
+
+    return (
+
+        <DashboardLayout>
+
+            <div className="p-10">
+
+                Loading...
+
+            </div>
+
+        </DashboardLayout>
+
+    );
+
+}
     return(
 
         <DashboardLayout>
@@ -108,13 +172,51 @@ function Profile(){
 
                 <div className="mt-10">
 
-                    <Button>
+    <RecentProjects projects={projects} />
 
-                        Edit Profile
+</div>
 
-                    </Button>
+                <div className="mt-10">
 
-                </div>
+    {
+
+        editing ?
+
+        (
+
+            <ProfileForm
+
+                profile={profile}
+
+                onSave={handleSave}
+
+                onCancel={() => setEditing(false)}
+
+            />
+
+        )
+
+        :
+
+        (
+
+            <button
+
+                onClick={() => setEditing(true)}
+
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+
+            >
+
+                Edit Profile
+
+            </button>
+
+        )
+
+    }
+
+</div>
 
             </div>
 

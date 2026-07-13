@@ -1,33 +1,24 @@
+import ProfileImage from "./ProfileImage";
+
 function ProfileHeader({ profile }) {
 
     return (
 
-        <div className="bg-white rounded-xl shadow-md p-8">
+        <div className="bg-white shadow-lg rounded-2xl p-8 flex flex-col items-center">
 
-            <div className="flex flex-col items-center">
+            <ProfileImage profile={profile} />
 
-                <img
-                    src={
-                        profile?.profilePic ||
-                        "https://via.placeholder.com/150"
-                    }
-                    alt="Profile"
-                    className="w-40 h-40 rounded-full object-cover border-4 border-blue-500"
-                />
+            <h1 className="text-4xl font-bold mt-6">
 
-                <h1 className="text-4xl font-bold mt-5">
+                {profile?.name}
 
-                    {profile?.name}
+            </h1>
 
-                </h1>
+            <p className="text-gray-600 mt-2">
 
-                <p className="text-gray-500 mt-2">
+                {profile?.bio || "No bio added yet"}
 
-                    {profile?.bio || "No Bio Added"}
-
-                </p>
-
-            </div>
+            </p>
 
         </div>
 

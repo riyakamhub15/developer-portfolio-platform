@@ -1,10 +1,4 @@
-import SkillBadge from "./SkillBadge";
-
-function SkillsSection({
-
-    skills
-
-}) {
+function SkillsSection({ skills }) {
 
     return (
 
@@ -20,17 +14,27 @@ function SkillsSection({
 
                 {
 
-                    skills?.map((skill,index)=>(
+                    skills?.length ?
 
-                        <SkillBadge
+                    skills.map((skill,index)=>(
+
+                        <span
 
                             key={index}
 
-                            skill={skill}
+                            className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full"
 
-                        />
+                        >
+
+                            {skill}
+
+                        </span>
 
                     ))
+
+                    :
+
+                    <p>No Skills Added</p>
 
                 }
 

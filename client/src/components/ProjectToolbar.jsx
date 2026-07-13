@@ -24,11 +24,7 @@ function ProjectToolbar({
 
             />
 
-            <Button>
-
-                Add Project
-
-            </Button>
+           
 
         </div>
 

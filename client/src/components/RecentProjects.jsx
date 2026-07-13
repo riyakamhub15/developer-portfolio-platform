@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 function RecentProjects({ projects }) {
 
     return (
 
-        <div className="bg-white rounded-xl shadow-md p-6 mt-8">
+        <div className="bg-white rounded-xl shadow-md p-6">
 
-            <h2 className="text-2xl font-bold mb-5">
+            <h2 className="text-2xl font-bold mb-6">
 
                 Recent Projects
 
@@ -12,37 +14,53 @@ function RecentProjects({ projects }) {
 
             {
 
-                projects.length === 0 ?
+                projects?.length ? (
 
-                    <p>No Projects Added</p>
+                    <div className="space-y-4">
 
-                    :
+                        {
 
-                    projects.map((project) => (
+                            projects.map((project) => (
 
-                        <div
+                                <div
+                                    key={project._id}
+                                    className="border rounded-lg p-4"
+                                >
 
-                            key={project._id}
+                                    <h3 className="text-xl font-semibold">
 
-                            className="border-b py-3"
+                                        {project.title}
 
-                        >
+                                    </h3>
 
-                            <h3 className="font-semibold">
+                                    <p className="text-gray-600 mt-2">
 
-                                {project.title}
+                                        {project.description}
 
-                            </h3>
+                                    </p>
 
-                            <p className="text-gray-500">
+                                    <Link
+                                        to={`/project/${project._id}`}
+                                        className="text-blue-600 font-semibold mt-3 inline-block"
+                                    >
 
-                                {project.description}
+                                        View Project →
 
-                            </p>
+                                    </Link>
 
-                        </div>
+                                </div>
 
-                    ))
+                            ))
+
+                        }
+
+                    </div>
+
+                ) : (
+
+                    <p>No projects added yet.</p>
+
+                )
 
             }
 

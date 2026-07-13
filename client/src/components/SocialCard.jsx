@@ -1,22 +1,16 @@
-function SocialCard({
-
-    title,
-
-    value
-
-}) {
+function SocialCard({ title, value }) {
 
     return (
 
-        <div className="bg-white shadow rounded-lg p-5">
+        <div className="bg-white rounded-xl shadow-md p-5">
 
-            <h2 className="font-bold">
+            <h3 className="font-bold text-gray-600">
 
                 {title}
 
-            </h2>
+            </h3>
 
-            <p className="text-blue-600 break-all mt-2">
+            <p className="mt-2 break-words">
 
                 {value || "Not Added"}
 

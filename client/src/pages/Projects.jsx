@@ -1,38 +1,40 @@
-import {useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 
 import DashboardLayout from "../layouts/DashboardLayout";
-
 import ProjectToolbar from "../components/ProjectToolbar";
-
-import ProjectGrid from "../components/ProjectGrid";
-
 import EmptyState from "../components/EmptyState";
+import ProjectCard from "../components/ProjectCard";
+import ProjectForm from "../components/ProjectForm";
+import Button from "../components/Button";
 
-import {getProjects} from "../services/projectService";
+import {
+    getProjects,
+    createProject
+} from "../services/projectService";
 
-function Projects(){
+function Projects() {
 
-    const [projects,setProjects]=useState([]);
+    const [projects, setProjects] = useState([]);
+    const [search, setSearch] = useState("");
+    const [showForm, setShowForm] = useState(false);
 
-    const [search,setSearch]=useState("");
-
-    useEffect(()=>{
+    useEffect(() => {
 
         fetchProjects();
 
-    },[]);
+    }, []);
 
-    const fetchProjects=async()=>{
+    const fetchProjects = async () => {
 
-        try{
+        try {
 
-            const res=await getProjects();
+            const res = await getProjects();
 
             setProjects(res.data);
 
         }
 
-        catch(error){
+        catch (error) {
 
             console.log(error);
 
@@ -40,55 +42,139 @@ function Projects(){
 
     };
 
-    const filteredProjects=
+    const handleSave = async (data) => {
 
-    projects.filter(project=>
+        try {
 
-        project.title
+            await createProject(data);
 
-        .toLowerCase()
+            await fetchProjects();
 
-        .includes(
+            setShowForm(false);
 
-            search.toLowerCase()
+            alert("Project Added Successfully!");
 
-        )
+        }
 
+        catch (error) {
+
+            console.log(error);
+
+            alert("Failed to Add Project");
+
+        }
+
+    };
+
+    const handleEdit = (project) => {
+
+        console.log("Edit:", project);
+
+    };
+
+    const handleDelete = (id) => {
+
+        console.log("Delete:", id);
+
+    };
+
+    const filteredProjects = projects.filter((project) =>
+        project.title.toLowerCase().includes(search.toLowerCase())
     );
 
-    return(
+    return (
 
         <DashboardLayout>
 
             <div className="p-8">
 
-                <h1 className="text-4xl font-bold">
+                <div className="flex justify-between items-center mb-6">
 
-                    Projects
+                    <h1 className="text-4xl font-bold">
 
-                </h1>
+                        Projects
+
+                    </h1>
+
+                    {
+
+                        !showForm && (
+
+                            <Button
+                                onClick={() => setShowForm(true)}
+                            >
+
+                                Add Project
+
+                            </Button>
+
+                        )
+
+                    }
+
+                </div>
 
                 <ProjectToolbar
-
                     search={search}
-
                     setSearch={setSearch}
-
                 />
 
                 {
 
-                    filteredProjects.length===0 ?
+                    showForm && (
 
-                    <EmptyState/>
+                        <div className="my-8">
 
-                    :
+                            <ProjectForm
+                                onSave={handleSave}
+                                onCancel={() => setShowForm(false)}
+                            />
 
-                    <ProjectGrid
+                        </div>
 
-                        projects={filteredProjects}
+                    )
 
-                    />
+                }
+
+                {
+
+                    filteredProjects.length === 0 ?
+
+                        (
+
+                            <EmptyState />
+
+                        )
+
+                        :
+
+                        (
+
+                            <div className="grid md:grid-cols-2 gap-6 mt-8">
+
+                                {
+
+                                    filteredProjects.map((project) => (
+
+                                        <ProjectCard
+
+                                            key={project._id}
+
+                                            project={project}
+
+                                            onEdit={handleEdit}
+
+                                            onDelete={handleDelete}
+
+                                        />
+
+                                    ))
+
+                                }
+
+                            </div>
+
+                        )
 
                 }
 
