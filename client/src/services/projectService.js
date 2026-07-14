@@ -26,3 +26,6 @@ export const updateProject = (id, data) =>
 
 export const deleteProject = (id) =>
     API.delete(`/${id}`);
+
+export const getProjectById = (id) =>
+    API.get(`/${id}`);

@@ -7,16 +7,15 @@ import ProjectCard from "../components/ProjectCard";
 import ProjectForm from "../components/ProjectForm";
 import Button from "../components/Button";
 
-import {
-    getProjects,
-    createProject
-} from "../services/projectService";
+import {getProjects, createProject, updateProject, deleteProject} from "../services/projectService";
 
 function Projects() {
 
     const [projects, setProjects] = useState([]);
     const [search, setSearch] = useState("");
     const [showForm, setShowForm] = useState(false);
+    const [selectedProject, setSelectedProject] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
 
@@ -42,41 +41,81 @@ function Projects() {
 
     };
 
-    const handleSave = async (data) => {
+   const handleSave = async (data) => {
 
-        try {
+    try {
+
+        if (isEditing) {
+
+            await updateProject(selectedProject._id, data);
+
+            alert("Project Updated Successfully!");
+
+        } else {
 
             await createProject(data);
-
-            await fetchProjects();
-
-            setShowForm(false);
 
             alert("Project Added Successfully!");
 
         }
 
-        catch (error) {
+        await fetchProjects();
 
-            console.log(error);
+        setShowForm(false);
 
-            alert("Failed to Add Project");
+        setSelectedProject(null);
 
-        }
+        setIsEditing(false);
 
-    };
+    }
 
-    const handleEdit = (project) => {
+    catch (error) {
 
-        console.log("Edit:", project);
+        console.log(error);
 
-    };
+        alert("Operation Failed");
 
-    const handleDelete = (id) => {
+    }
 
-        console.log("Delete:", id);
+};
 
-    };
+   const handleEdit = (project) => {
+
+    setSelectedProject(project);
+
+    setIsEditing(true);
+
+    setShowForm(true);
+
+};
+
+    const handleDelete = async (id) => {
+
+    const confirmDelete = window.confirm(
+        "Are you sure you want to delete this project?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+
+        await deleteProject(id);
+
+        alert("Project Deleted Successfully!");
+
+        fetchProjects();
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        alert("Failed to Delete Project");
+
+    }
+
+};
 
     const filteredProjects = projects.filter((project) =>
         project.title.toLowerCase().includes(search.toLowerCase())
@@ -125,10 +164,19 @@ function Projects() {
 
                         <div className="my-8">
 
-                            <ProjectForm
-                                onSave={handleSave}
-                                onCancel={() => setShowForm(false)}
-                            />
+                           <ProjectForm
+    project={selectedProject}
+    onSave={handleSave}
+    onCancel={() => {
+
+        setShowForm(false);
+
+        setSelectedProject(null);
+
+        setIsEditing(false);
+
+    }}
+/>
 
                         </div>
 

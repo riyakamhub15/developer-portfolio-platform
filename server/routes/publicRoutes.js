@@ -1,16 +1,19 @@
 const express = require("express");
 
-const {
-getPortfolio
-}
-=
-require("../controllers/publicController");
-
 const router = express.Router();
 
+const {
+
+    getPortfolio
+
+} = require("../controllers/publicController");
+
 router.get(
-"/:username",
-getPortfolio
+
+    "/:username",
+
+    getPortfolio
+
 );
 
 module.exports = router;

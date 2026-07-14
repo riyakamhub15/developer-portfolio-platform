@@ -1,138 +1,163 @@
 const Project = require("../models/Project");
 
-exports.addProject = async(req,res)=>{
+exports.addProject = async (req, res) => {
 
-try{
+    try {
 
-const {
-title,
-description,
-techStack,
-githubLink,
-liveLink
-}
-=
-req.body;
+        const {
+            title,
+            description,
+            technologies,
+            github,
+            liveDemo
+        } = req.body;
 
-const project =
-await Project.create({
+        const project = await Project.create({
 
-userId:req.user.id,
+            user: req.user.id,
 
-title,
-description,
-techStack,
-githubLink,
-liveLink
+            title,
+            description,
+            technologies,
+            github,
+            liveDemo
 
-});
+        });
 
-res.status(201).json(project);
+        res.status(201).json(project);
 
-}
-catch(error){
+    }
 
-res.status(500).json({
-message:error.message
-});
+    catch (error) {
 
-}
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
 
 };
 
-exports.getProjects = async(req,res)=>{
+exports.getProjects = async (req, res) => {
 
-try{
+    try {
 
-const projects =
-await Project.find({
-userId:req.user.id
-});
+        const projects = await Project.find({
 
-res.status(200).json(projects);
+            user: req.user.id
 
-}
-catch(error){
+        });
 
-res.status(500).json({
-message:error.message
-});
+        res.status(200).json(projects);
 
-}
+    }
 
-};
+    catch (error) {
 
-exports.updateProject = async(req,res)=>{
+        res.status(500).json({
+            message: error.message
+        });
 
-try{
-
-const project =
-await Project.findById(req.params.id);
-
-if(!project){
-
-return res.status(404).json({
-message:"Project Not Found"
-});
-
-}
-
-const updatedProject =
-await Project.findByIdAndUpdate(
-
-req.params.id,
-
-req.body,
-
-{
-new:true
-}
-
-);
-
-res.status(200).json(updatedProject);
-
-}
-catch(error){
-
-res.status(500).json({
-message:error.message
-});
-
-}
+    }
 
 };
 
-exports.deleteProject = async(req,res)=>{
+exports.getProjectById = async (req, res) => {
 
-try{
+    try {
 
-const project =
-await Project.findById(req.params.id);
+        const project = await Project.findById(req.params.id);
 
-if(!project){
+        if (!project) {
 
-return res.status(404).json({
-message:"Project Not Found"
-});
+            return res.status(404).json({
+                message: "Project Not Found"
+            });
 
-}
+        }
 
-await Project.findByIdAndDelete(
-req.params.id
-);
+        res.status(200).json(project);
 
-res.status(200).json({
-message:"Project Deleted"
-});
+    }
 
-}
-catch(error){
+    catch (error) {
 
-res.status(500).json({
-message:error.message
-});
+        res.status(500).json({
+            message: error.message
+        });
 
-}
+    }
+
+};
+
+exports.updateProject = async (req, res) => {
+
+    try {
+
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+
+            return res.status(404).json({
+                message: "Project Not Found"
+            });
+
+        }
+
+        const updatedProject = await Project.findByIdAndUpdate(
+
+            req.params.id,
+
+            req.body,
+
+            {
+                new: true
+            }
+
+        );
+
+        res.status(200).json(updatedProject);
+
+    }
+
+    catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
+
+};
+
+exports.deleteProject = async (req, res) => {
+
+    try {
+
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+
+            return res.status(404).json({
+                message: "Project Not Found"
+            });
+
+        }
+
+        await Project.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({
+            message: "Project Deleted Successfully"
+        });
+
+    }
+
+    catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
 
 };

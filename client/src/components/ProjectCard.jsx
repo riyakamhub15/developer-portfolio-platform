@@ -1,4 +1,5 @@
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 function ProjectCard({ project, onEdit, onDelete }) {
 
@@ -7,6 +8,18 @@ function ProjectCard({ project, onEdit, onDelete }) {
         <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition">
 
             <h2 className="text-2xl font-bold">
+
+{
+    project.image && (
+
+        <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-48 object-cover rounded-lg mb-4"
+        />
+
+    )
+}
 
                 {project.title}
 
@@ -56,6 +69,18 @@ function ProjectCard({ project, onEdit, onDelete }) {
                 >
                     Delete
                 </Button>
+
+                <Link
+
+    to={`/projects/${project._id}`}
+
+    className="text-blue-600 font-semibold"
+
+>
+
+    View Details →
+
+</Link>
 
             </div>
 

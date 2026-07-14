@@ -8,6 +8,8 @@ import Portfolio from "./pages/Portfolio";
 import Profile from "./pages/Profile";
 import Projects from "./pages/Projects";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import ProjectDetails from "./pages/ProjectDetails";
+import PublicPortfolio from "./pages/PublicPortfolio";
 
 function App() {
 
@@ -82,6 +84,30 @@ element={
 </ProtectedRoute>
 
 }
+
+/>
+
+<Route
+
+    path="/projects/:id"
+
+    element={
+
+        <ProtectedRoute>
+
+            <ProjectDetails/>
+
+        </ProtectedRoute>
+
+    }
+
+/>
+
+<Route
+
+    path="/portfolio/:username"
+
+    element={<PublicPortfolio />}
 
 />
 
