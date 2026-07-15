@@ -8,19 +8,19 @@ function DashboardCard({
 
     return (
 
-        <div className="bg-white rounded-xl shadow-lg p-6">
+        <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6">
 
-            <h2 className="text-gray-500">
+            <p className="text-gray-500 text-sm uppercase tracking-wide">
 
                 {title}
 
-            </h2>
+            </p>
 
-            <h1 className="text-4xl font-bold mt-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mt-3">
 
                 {value}
 
-            </h1>
+            </h2>
 
         </div>
 

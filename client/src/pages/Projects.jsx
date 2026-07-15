@@ -8,6 +8,7 @@ import ProjectForm from "../components/ProjectForm";
 import Button from "../components/Button";
 
 import {getProjects, createProject, updateProject, deleteProject} from "../services/projectService";
+import { toast } from "react-toastify";
 
 function Projects() {
 
@@ -41,6 +42,7 @@ function Projects() {
 
     };
 
+   
    const handleSave = async (data) => {
 
     try {
@@ -49,13 +51,13 @@ function Projects() {
 
             await updateProject(selectedProject._id, data);
 
-            alert("Project Updated Successfully!");
+            toast.success("Project updated successfully!");
 
         } else {
 
             await createProject(data);
 
-            alert("Project Added Successfully!");
+            toast.success("Project added successfully!");
 
         }
 
@@ -73,7 +75,7 @@ function Projects() {
 
         console.log(error);
 
-        alert("Operation Failed");
+        toast.error("Something went wrong!");
 
     }
 
@@ -89,7 +91,7 @@ function Projects() {
 
 };
 
-    const handleDelete = async (id) => {
+   const handleDelete = async (id) => {
 
     const confirmDelete = window.confirm(
         "Are you sure you want to delete this project?"
@@ -101,7 +103,7 @@ function Projects() {
 
         await deleteProject(id);
 
-        alert("Project Deleted Successfully!");
+        toast.success("Project deleted successfully!");
 
         fetchProjects();
 
@@ -111,7 +113,7 @@ function Projects() {
 
         console.log(error);
 
-        alert("Failed to Delete Project");
+        toast.error("Failed to delete project");
 
     }
 

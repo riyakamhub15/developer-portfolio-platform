@@ -55,124 +55,166 @@ function ProjectForm({ onSave, project, onCancel }) {
     return (
 
         <form
+
             onSubmit={handleSubmit}
-            className="bg-white rounded-xl shadow-md p-8"
+
+            className="bg-white rounded-xl shadow-lg p-5 md:p-8 w-full max-w-3xl mx-auto"
+
         >
 
-            <h2 className="text-3xl font-bold mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
 
                 {project ? "Edit Project" : "Add New Project"}
 
             </h2>
 
-            <div className="mb-5">
+            <div className="space-y-6">
 
-                <label className="block font-semibold mb-2">
+                <div>
 
-                    Project Title
+                    <label className="block font-semibold mb-2">
 
-                </label>
+                        Project Title
 
-                <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    className="w-full border rounded-lg px-4 py-3"
-                />
+                    </label>
 
-            </div>
+                    <input
 
-            <div className="mb-5">
+                        type="text"
 
-                <label className="block font-semibold mb-2">
+                        name="title"
 
-                    Description
+                        value={formData.title}
 
-                </label>
+                        onChange={handleChange}
 
-                <textarea
-                    rows="4"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    className="w-full border rounded-lg px-4 py-3"
-                />
+                        className="w-full border rounded-lg px-4 py-3"
 
-            </div>
+                    />
 
-            <div className="mb-5">
+                </div>
 
-                <label className="block font-semibold mb-2">
+                <div>
 
-                    Technologies
+                    <label className="block font-semibold mb-2">
 
-                </label>
+                        Description
 
-                <input
-                    type="text"
-                    name="technologies"
-                    value={formData.technologies}
-                    onChange={handleChange}
-                    placeholder="React, Node, MongoDB"
-                    className="w-full border rounded-lg px-4 py-3"
-                />
+                    </label>
 
-            </div>
+                    <textarea
 
-            <div className="mb-5">
+                        rows="5"
 
-                <label className="block font-semibold mb-2">
+                        name="description"
 
-                    GitHub Link
+                        value={formData.description}
 
-                </label>
+                        onChange={handleChange}
 
-                <input
-                    type="text"
-                    name="github"
-                    value={formData.github}
-                    onChange={handleChange}
-                    className="w-full border rounded-lg px-4 py-3"
-                />
+                        className="w-full border rounded-lg px-4 py-3"
 
-            </div>
+                    />
 
-            <div className="mb-8">
+                </div>
 
-                <label className="block font-semibold mb-2">
+                <div>
 
-                    Live Demo Link
+                    <label className="block font-semibold mb-2">
 
-                </label>
+                        Technologies
 
-                <input
-                    type="text"
-                    name="liveDemo"
-                    value={formData.liveDemo}
-                    onChange={handleChange}
-                    className="w-full border rounded-lg px-4 py-3"
-                />
+                    </label>
 
-            </div>
+                    <input
 
-            <div className="flex gap-4">
+                        type="text"
 
-                <Button type="submit">
+                        name="technologies"
 
-                    {project ? "Update Project" : "Add Project"}
+                        value={formData.technologies}
 
-                </Button>
+                        onChange={handleChange}
 
-                <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={onCancel}
-                >
+                        placeholder="React, Node, MongoDB"
 
-                    Cancel
+                        className="w-full border rounded-lg px-4 py-3"
 
-                </Button>
+                    />
+
+                </div>
+
+                <div>
+
+                    <label className="block font-semibold mb-2">
+
+                        GitHub Link
+
+                    </label>
+
+                    <input
+
+                        type="url"
+
+                        name="github"
+
+                        value={formData.github}
+
+                        onChange={handleChange}
+
+                        className="w-full border rounded-lg px-4 py-3"
+
+                    />
+
+                </div>
+
+                <div>
+
+                    <label className="block font-semibold mb-2">
+
+                        Live Demo Link
+
+                    </label>
+
+                    <input
+
+                        type="url"
+
+                        name="liveDemo"
+
+                        value={formData.liveDemo}
+
+                        onChange={handleChange}
+
+                        className="w-full border rounded-lg px-4 py-3"
+
+                    />
+
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+
+                    <Button type="submit">
+
+                        {project ? "Update Project" : "Add Project"}
+
+                    </Button>
+
+                    <Button
+
+                        type="button"
+
+                        variant="secondary"
+
+                        onClick={onCancel}
+
+                    >
+
+                        Cancel
+
+                    </Button>
+
+                </div>
 
             </div>
 

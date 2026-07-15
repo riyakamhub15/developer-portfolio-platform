@@ -2,17 +2,17 @@ function DashboardHeader({ name }) {
 
     return (
 
-        <div className="bg-white shadow-sm p-6">
+        <div className="bg-white rounded-2xl shadow-md p-6 md:p-8 mb-6">
 
-            <h1 className="text-4xl font-bold">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800">
 
-                Welcome Back {name} 
+                Welcome Back{ name ? `, ${name}` : "" } 👋
 
             </h1>
 
-            <p className="text-gray-500 mt-2">
+            <p className="text-gray-500 mt-3 text-sm sm:text-base">
 
-                Manage your portfolio from one place.
+                Manage your portfolio, projects and profile from one place.
 
             </p>
 

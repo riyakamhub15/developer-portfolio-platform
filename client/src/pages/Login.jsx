@@ -8,6 +8,7 @@ import Button from "../components/Button";
 
 import { loginUser } from "../services/authService";
 import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 function Login() {
 
@@ -46,7 +47,7 @@ console.log("API Response:", response.data);
 console.log("Token:", response.data.token);
 
 await login(response.data.token);
-
+toast.success("Login Successful!");
 console.log("LocalStorage Token:", localStorage.getItem("token"));
 
 navigate("/dashboard");
@@ -55,10 +56,10 @@ navigate("/dashboard");
 
         catch (error) {
 
-            alert(
-                error.response?.data?.message ||
-                "Login Failed"
-            );
+          toast.error(
+    error.response?.data?.message ||
+    "Login Failed"
+);
 
         }
 

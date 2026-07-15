@@ -1,26 +1,20 @@
-import Button from "./Button";
+function ProjectToolbar({ search, setSearch }) {
 
-function ProjectToolbar({
+    return (
 
-    search,
-
-    setSearch
-
-}){
-
-    return(
-
-        <div className="flex justify-between items-center mb-10">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
 
             <input
 
+                type="text"
+
                 value={search}
 
-                onChange={(e)=>setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
 
-                placeholder="Search Project..."
+                placeholder="Search Projects..."
 
-                className="border rounded-lg px-4 py-3 w-80"
+                className="w-full md:w-96 border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
 
             />
 

@@ -40,7 +40,7 @@ function RecentProjects({ projects }) {
                                     </p>
 
                                     <Link
-                                        to={`/project/${project._id}`}
+                                        to={`/projects/${project._id}`}
                                         className="text-blue-600 font-semibold mt-3 inline-block"
                                     >
 

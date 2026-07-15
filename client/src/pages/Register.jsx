@@ -9,6 +9,7 @@ import Button from "../components/Button";
 
 import { registerUser } from "../services/authService";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Register() {
 
@@ -46,7 +47,7 @@ function Register() {
 
             await registerUser(formData);
 
-            alert("Registration Successful");
+            toast.success("Registration Successful!");
 
             navigate("/login");
 
@@ -54,7 +55,10 @@ function Register() {
 
         catch (error) {
 
-            alert(error.response?.data?.message || "Registration Failed");
+           toast.error(
+    error.response?.data?.message ||
+    "Registration Failed"
+);
 
         }
 
