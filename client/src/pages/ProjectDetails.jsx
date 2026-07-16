@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import DashboardLayout from "../layouts/DashboardLayout";
-
 import { getProjectById } from "../services/projectService";
 
 function ProjectDetails() {
@@ -41,9 +40,13 @@ function ProjectDetails() {
 
             <DashboardLayout>
 
-                <div className="p-10">
+                <div className="flex justify-center items-center h-[70vh]">
 
-                    Loading...
+                    <h1 className="text-2xl font-bold">
+
+                        Loading Project...
+
+                    </h1>
 
                 </div>
 
@@ -57,61 +60,147 @@ function ProjectDetails() {
 
         <DashboardLayout>
 
-            <div className="max-w-5xl mx-auto p-8">
+            <div className="max-w-5xl mx-auto px-4 md:px-8 py-8">
 
-                <h1 className="text-4xl font-bold">
+                {
 
-                    {project.title}
+                    project.image && (
 
-                </h1>
+                        <img
 
-                <p className="text-gray-600 mt-4">
+                            src={project.image}
 
-                    {project.description}
+                            alt={project.title}
 
-                </p>
+                            className="w-full h-72 object-cover rounded-2xl shadow-md mb-8"
 
-                <div className="flex flex-wrap gap-3 mt-8">
+                        />
 
-                    {
+                    )
 
-                        project.technologies.map((tech,index)=>(
+                }
 
-                            <span
+                <div className="bg-white rounded-2xl shadow-md p-8">
 
-                                key={index}
+                    <h1 className="text-3xl md:text-4xl font-bold">
 
-                                className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full"
+                        {project.title}
 
-                            >
+                    </h1>
 
-                                {tech}
+                    <p className="text-gray-600 mt-5 leading-7">
 
-                            </span>
-
-                        ))
-
-                    }
-
-                </div>
-
-                <div className="mt-8 space-y-3">
-
-                    <p>
-
-                        <strong>GitHub:</strong>
-
-                        {project.github || "Not Added"}
+                        {project.description}
 
                     </p>
 
-                    <p>
+                    <div className="flex flex-wrap gap-3 mt-8">
 
-                        <strong>Live Demo:</strong>
+                        {
 
-                        {project.liveDemo || "Not Added"}
+                            project.technologies?.map((tech, index) => (
 
-                    </p>
+                                <span
+
+                                    key={index}
+
+                                    className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full"
+
+                                >
+
+                                    {tech}
+
+                                </span>
+
+                            ))
+
+                        }
+
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-5 mt-10">
+
+                        <div>
+
+                            <h3 className="font-bold mb-2">
+
+                                GitHub
+
+                            </h3>
+
+                            {
+
+                                project.github ?
+
+                                (
+
+                                    <a
+
+                                        href={project.github}
+
+                                        target="_blank"
+
+                                        rel="noreferrer"
+
+                                        className="text-blue-600 break-all"
+
+                                    >
+
+                                        {project.github}
+
+                                    </a>
+
+                                )
+
+                                :
+
+                                "Not Added"
+
+                            }
+
+                        </div>
+
+                        <div>
+
+                            <h3 className="font-bold mb-2">
+
+                                Live Demo
+
+                            </h3>
+
+                            {
+
+                                project.liveDemo ?
+
+                                (
+
+                                    <a
+
+                                        href={project.liveDemo}
+
+                                        target="_blank"
+
+                                        rel="noreferrer"
+
+                                        className="text-blue-600 break-all"
+
+                                    >
+
+                                        {project.liveDemo}
+
+                                    </a>
+
+                                )
+
+                                :
+
+                                "Not Added"
+
+                            }
+
+                        </div>
+
+                    </div>
 
                 </div>
 

@@ -1,50 +1,98 @@
 import { Link } from "react-router-dom";
 
-function RecentProjects({ projects }) {
+function RecentProjects({ projects = [] }) {
 
     return (
 
-        <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="bg-white rounded-2xl shadow-md p-6">
 
-            <h2 className="text-2xl font-bold mb-6">
+            <div className="flex justify-between items-center mb-6">
 
-                Recent Projects
+                <h2 className="text-2xl font-bold">
 
-            </h2>
+                    Recent Projects
+
+                </h2>
+
+            </div>
 
             {
 
-                projects?.length ? (
+                projects.length === 0 ?
 
-                    <div className="space-y-4">
+                (
+
+                    <p className="text-gray-500">
+
+                        No projects added yet.
+
+                    </p>
+
+                )
+
+                :
+
+                (
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
                         {
 
-                            projects.map((project) => (
+                            projects.slice(0, 4).map((project) => (
 
                                 <div
+
                                     key={project._id}
-                                    className="border rounded-lg p-4"
+
+                                    className="border rounded-xl p-5 hover:shadow-md transition"
+
                                 >
 
-                                    <h3 className="text-xl font-semibold">
+                                    <h3 className="text-xl font-bold">
 
                                         {project.title}
 
                                     </h3>
 
-                                    <p className="text-gray-600 mt-2">
+                                    <p className="text-gray-600 mt-3 line-clamp-3">
 
                                         {project.description}
 
                                     </p>
 
+                                    <div className="flex flex-wrap gap-2 mt-4">
+
+                                        {
+
+                                            project.technologies?.map((tech, index) => (
+
+                                                <span
+
+                                                    key={index}
+
+                                                    className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm"
+
+                                                >
+
+                                                    {tech}
+
+                                                </span>
+
+                                            ))
+
+                                        }
+
+                                    </div>
+
                                     <Link
+
                                         to={`/projects/${project._id}`}
-                                        className="text-blue-600 font-semibold mt-3 inline-block"
+
+                                        className="inline-block mt-5 text-blue-600 font-semibold"
+
                                     >
 
-                                        View Project →
+                                        View Details →
 
                                     </Link>
 
@@ -55,10 +103,6 @@ function RecentProjects({ projects }) {
                         }
 
                     </div>
-
-                ) : (
-
-                    <p>No projects added yet.</p>
 
                 )
 

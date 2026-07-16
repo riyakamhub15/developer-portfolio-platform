@@ -123,116 +123,147 @@ function Projects() {
         project.title.toLowerCase().includes(search.toLowerCase())
     );
 
-    return (
+return (
 
-        <DashboardLayout>
+    <DashboardLayout>
 
-            <div className="p-8">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
 
-                <div className="flex justify-between items-center mb-6">
+            {/* Header */}
 
-                    <h1 className="text-4xl font-bold">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-8">
+
+                <div>
+
+                    <h1 className="text-3xl md:text-4xl font-bold">
 
                         Projects
 
                     </h1>
 
-                    {
+                    <p className="text-gray-500 mt-2">
 
-                        !showForm && (
+                        Manage all your portfolio projects here.
 
-                            <Button
-                                onClick={() => setShowForm(true)}
-                            >
-
-                                Add Project
-
-                            </Button>
-
-                        )
-
-                    }
+                    </p>
 
                 </div>
 
-                <ProjectToolbar
-                    search={search}
-                    setSearch={setSearch}
-                />
-
                 {
 
-                    showForm && (
+                    !showForm && (
 
-                        <div className="my-8">
+                        <Button
 
-                           <ProjectForm
-    project={selectedProject}
-    onSave={handleSave}
-    onCancel={() => {
+                            onClick={() => setShowForm(true)}
 
-        setShowForm(false);
+                        >
 
-        setSelectedProject(null);
+                            + New Project
 
-        setIsEditing(false);
-
-    }}
-/>
-
-                        </div>
+                        </Button>
 
                     )
 
                 }
 
-                {
+            </div>
 
-                    filteredProjects.length === 0 ?
+            {/* Search */}
 
-                        (
+            <div className="bg-white rounded-2xl shadow-md p-5 mb-8">
 
-                            <EmptyState />
+                <ProjectToolbar
 
-                        )
+                    search={search}
 
-                        :
+                    setSearch={setSearch}
 
-                        (
-
-                            <div className="grid md:grid-cols-2 gap-6 mt-8">
-
-                                {
-
-                                    filteredProjects.map((project) => (
-
-                                        <ProjectCard
-
-                                            key={project._id}
-
-                                            project={project}
-
-                                            onEdit={handleEdit}
-
-                                            onDelete={handleDelete}
-
-                                        />
-
-                                    ))
-
-                                }
-
-                            </div>
-
-                        )
-
-                }
+                />
 
             </div>
 
-        </DashboardLayout>
+            {/* Form */}
 
-    );
+            {
+
+                showForm && (
+
+                    <div className="bg-white rounded-2xl shadow-md p-6 mb-8">
+
+                        <ProjectForm
+
+                            project={selectedProject}
+
+                            onSave={handleSave}
+
+                            onCancel={() => {
+
+                                setShowForm(false);
+
+                                setSelectedProject(null);
+
+                                setIsEditing(false);
+
+                            }}
+
+                        />
+
+                    </div>
+
+                )
+
+            }
+
+            {/* Projects */}
+
+            {
+
+                filteredProjects.length === 0 ?
+
+                (
+
+                    <EmptyState />
+
+                )
+
+                :
+
+                (
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                        {
+
+                            filteredProjects.map((project) => (
+
+                                <ProjectCard
+
+                                    key={project._id}
+
+                                    project={project}
+
+                                    onEdit={handleEdit}
+
+                                    onDelete={handleDelete}
+
+                                />
+
+                            ))
+
+                        }
+
+                    </div>
+
+                )
+
+            }
+
+        </div>
+
+    </DashboardLayout>
+
+);
 
 }
 
