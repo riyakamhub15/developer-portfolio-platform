@@ -1,9 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-
-    baseURL: "http://localhost:5000/api/portfolio"
-
+    baseURL: process.env.REACT_APP_API_URL,
 });
 
 export const getPortfolio = (username) =>

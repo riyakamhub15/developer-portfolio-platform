@@ -10,13 +10,9 @@ function ProjectDetails() {
 
     const [project, setProject] = useState(null);
 
-    useEffect(() => {
+   
 
-        fetchProject();
-
-    }, []);
-
-    const fetchProject = async () => {
+ /*   const fetchProject = async () => {
 
         try {
 
@@ -32,7 +28,28 @@ function ProjectDetails() {
 
         }
 
+    }; */
+
+    useEffect(() => {
+    const fetchProject = async () => {
+        
+        try {
+
+            const res = await getProjectById(id);
+
+            setProject(res.data);
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
     };
+
+    fetchProject();
+}, [id]);
 
     if (!project) {
 

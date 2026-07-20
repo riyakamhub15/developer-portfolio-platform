@@ -14,13 +14,9 @@ function PublicPortfolio() {
 
     const [portfolio, setPortfolio] = useState(null);
 
-    useEffect(() => {
+   
 
-        fetchPortfolio();
-
-    }, []);
-
-    const fetchPortfolio = async () => {
+ /*   const fetchPortfolio = async () => {
 
         try {
 
@@ -36,7 +32,27 @@ function PublicPortfolio() {
 
         }
 
+    }; */
+
+    useEffect(() => {
+    const fetchPortfolio = async () => {
+         try {
+
+            const res = await getPortfolio(username);
+
+            setPortfolio(res.data);
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
     };
+
+    fetchPortfolio();
+}, [username]);
 
     if (!portfolio) {
 
