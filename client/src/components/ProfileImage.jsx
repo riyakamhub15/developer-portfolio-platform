@@ -1,19 +1,21 @@
 function ProfileImage({ profile }) {
 
+    const initials =
+        profile?.name
+            ?.split(" ")
+            .map(word => word[0])
+            .join("")
+            .toUpperCase() || "U";
+
     return (
 
         <div className="flex flex-col items-center">
 
-            <img
-                src={
-                    profile?.profilePic ||
-                    "https://ui-avatars.com/api/?name=" +
-                    encodeURIComponent(profile?.name || "User") +
-                    "&background=2563eb&color=fff&size=200"
-                }
-                alt="Profile"
-                className="w-40 h-40 rounded-full border-4 border-blue-600 object-cover shadow-lg"
-            />
+            <div className="w-40 h-40 rounded-full bg-blue-600 border-4 border-blue-600 shadow-lg flex items-center justify-center text-white text-5xl font-bold">
+
+                {initials}
+
+            </div>
 
         </div>
 

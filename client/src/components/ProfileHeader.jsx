@@ -4,7 +4,7 @@ function ProfileHeader({ profile }) {
 
     return (
 
-        <div className="bg-white shadow-lg rounded-2xl p-6 md:p-10 flex flex-col items-center text-center">
+       <div className="bg-white shadow-lg rounded-2xl p-6 md:p-10 flex flex-col items-center text-center">
 
             <ProfileImage profile={profile} />
 
@@ -22,7 +22,7 @@ function ProfileHeader({ profile }) {
 
         </div>
 
-    );
+    ); 
 
 }
 

@@ -96,7 +96,7 @@ function Portfolio() {
 
                             src={
                                 portfolio.user.profilePic ||
-                                "https://via.placeholder.com/150"
+                                ""
                             }
 
                             alt="Profile"

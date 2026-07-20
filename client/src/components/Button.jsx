@@ -14,14 +14,31 @@ function Button({
     };
 
     return (
+
         <button
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={`${styles[variant]} px-5 py-2 rounded-lg font-semibold transition ${className}`}
+            className={`
+                ${styles[variant]}
+                px-5 sm:px-6
+                py-2.5 sm:py-3
+                rounded-lg
+                font-semibold
+                text-sm sm:text-base
+                transition-all
+                duration-300
+                disabled:opacity-50
+                disabled:cursor-not-allowed
+                active:scale-95
+                ${className}
+            `}
         >
+
             {children}
+
         </button>
+
     );
 
 }

@@ -10,21 +10,21 @@ function FeatureCard({
 
     return (
 
-        <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition duration-300">
+        <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 sm:p-8 text-center h-full">
 
-            <div className="text-5xl">
+            <div className="text-5xl sm:text-6xl">
 
                 {emoji}
 
             </div>
 
-            <h2 className="text-2xl font-bold mt-5">
+            <h2 className="text-xl sm:text-2xl font-bold mt-5">
 
                 {title}
 
             </h2>
 
-            <p className="text-gray-600 mt-4">
+            <p className="text-gray-600 mt-4 leading-7">
 
                 {description}
 

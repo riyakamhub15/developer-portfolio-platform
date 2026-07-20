@@ -4,27 +4,31 @@ function CTA() {
 
     return (
 
-        <section className="bg-blue-600 py-24 text-center text-white">
+        <section className="bg-blue-600 py-16 md:py-24 text-center text-white">
 
-            <h2 className="text-4xl font-bold">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
-                Ready to Build Your Portfolio?
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
 
-            </h2>
+                    Ready to Build Your Portfolio?
 
-            <p className="mt-5 text-lg">
+                </h2>
 
-                Join thousands of developers already showcasing their work.
+                <p className="mt-5 text-base sm:text-lg text-blue-100 max-w-2xl mx-auto">
 
-            </p>
+                    Join thousands of developers already showcasing their work.
 
-            <div className="mt-8">
+                </p>
 
-                <Button>
+                <div className="mt-8 flex justify-center">
 
-                    Create Portfolio
+                    <Button>
 
-                </Button>
+                        Create Portfolio
+
+                    </Button>
+
+                </div>
 
             </div>
 
